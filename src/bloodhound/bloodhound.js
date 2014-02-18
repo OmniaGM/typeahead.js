@@ -88,11 +88,12 @@ var Bloodhound = window.Bloodhound = (function() {
 
       query = query || '';
       uriEncodedQuery = encodeURIComponent(query);
-
+      
       url = this.remote.replace ?
         this.remote.replace(this.remote.url, query) :
         this.remote.url.replace(this.remote.wildcard, uriEncodedQuery);
 
+      this.transport.resetCache()
       return this.transport.get(url, this.remote.ajax, handleRemoteResponse);
 
       function handleRemoteResponse(resp) {

@@ -18,6 +18,9 @@ var Transport = (function() {
 
     this._send = o.transport ? callbackToDeferred(o.transport) : $.ajax;
     this._get = o.rateLimiter ? o.rateLimiter(this._get) : this._get;
+    this.resetCache = function clearCache() {
+      requestCache = new LruCache(10);
+    };
   }
 
   // static methods
@@ -27,9 +30,6 @@ var Transport = (function() {
     maxPendingRequests = num;
   };
 
-  Transport.resetCache = function clearCache() {
-    requestCache = new LruCache(10);
-  };
 
   // instance methods
   // ----------------
